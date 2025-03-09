@@ -48,7 +48,7 @@ h1 {
 }
 
 .imagem {
-  width: 30vw; /* 40% da largura da tela */
+  width: 30vw; /* 30% da largura da tela */
   position: absolute;
   left: 0;
   top: 50%;
@@ -69,4 +69,15 @@ footer {
   padding: 10px 0;
   color: #000000;
   font-family: Verdana;
+}
+@media (max-width: 1200px) {
+  .imagem {
+    height: auto; /* Permite ajuste dinâmico */
+    width: 50vw; /* Aumenta a visibilidade */
+    position: fixed; /* Mantém a imagem sobre os outros elementos */
+    top: 10px; /* Ajusta a posição */
+    left: 50%; /* Centraliza horizontalmente */
+    transform: translateX(-50%); /* Ajuste fino para centralizar */
+    z-index: 1000; /* Garante que a imagem fique sobre os demais elementos */
+  }
 }
