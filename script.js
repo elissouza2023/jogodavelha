@@ -11,7 +11,7 @@ let positions = [
 
 // Perguntar o modo de jogo ao carregar
 function chooseMode() {
-  let mode = prompt("Escolha o modo de jogo:\n1 - Dois jogadores\n2 - Um jogador contra a IA");
+  let mode = prompt("Escolha o modo de jogo:\n1 - Dois jogadores\n2 -Um jogador Contra a IA");
   if (mode === "2") {
     vsAI = true;
   }
@@ -25,6 +25,7 @@ function init() {
   document.querySelectorAll(".game button").forEach((item, index) => {
     item.innerHTML = "";
     item.style.color = "black";
+    item.style.backgroundColor = "white"; // Resetando fundo ao reiniciar
     item.addEventListener("click", newMove);
   });
 }
@@ -103,19 +104,32 @@ function check() {
 
   for (let pos of positions) {
     if (pos.every((i) => items.includes(i))) {
+      highlightWinningLine(pos); // Destacar linha vencedora
       alert(`Parabéns Jogador '${playerLastMove}', Você GANHOU!!!!`);
-      init();
       return true;
     }
   }
 
   if (selected.every((item) => item !== null)) {
     alert("Parabéns Jogadores, vocês empataram. Jogo equilibrado!");
-    init();
     return true;
   }
 
   return false;
+}
+
+// Destaca a linha vencedora de vermelho e desativa todos os botões
+function highlightWinningLine(pos) {
+  let buttons = document.querySelectorAll(".game button");
+  pos.forEach((index) => {
+    buttons[index].style.backgroundColor = "red"; // Destacando os botões vencedores
+    buttons[index].style.color = "white";
+  });
+
+  // Desativa todos os botões para evitar cliques extras após o fim do jogo
+  buttons.forEach((btn) => btn.removeEventListener("click", newMove));
+
+  setTimeout(() => init(), 3000); // Reinicia o jogo após 3s
 }
 
 // Executa a escolha de modo antes de iniciar
